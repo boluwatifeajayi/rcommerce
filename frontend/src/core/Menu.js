@@ -21,7 +21,7 @@ const Menu = ({history}) => (<div>
 <div className="container">
 
 <a className="navbar-brand me-2">
- RSHIRTS
+ E-SHOPY
 </a>
 
 

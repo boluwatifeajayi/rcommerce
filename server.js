@@ -12,11 +12,13 @@ const connectDB = require('./config/db');
 const config = require('./config/database');
 const path = require('path');
 
+const settings = 'production'
+
 require('dotenv').config();
 
 connectDB();
 
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 8080;
 //import routes
 
 const authRoutes = require('./routes/auth')
@@ -41,35 +43,22 @@ app.use('/api', userRoutes);
 app.use('/api', categoryRoutes);
 app.use('/api', productRoutes);
 
-//serve static assets in production
-
-// if(process.env.NODE_ENV === 'production'){
-//     //set static folder
-//     app.use(express.static('frontend/build'));
-
-//     app.get('*', (req, res) => {
-//         res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
-//     });
-// }
+// serve frontend
 
 
-app.use(compression());
-// app.use(express.static(path.join(__dirname, 'build')));
+// Serve static assets in production
+if (settings === 'production') {
+  // Set static folder
+ 
+  app.use(express.static(path.join(__dirname, './frontend/build')))
 
-// app.get('*', function(req, res) {
-//     res.sendFile(path.join(__dirname, 'build', 'index.html'));
-// });
 
 
-app.use(express.static(path.join(__dirname, './frontend/build')))
+  app.get('*', (req, res) =>
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
+  );
+}
 
-app.get('*', function(_, res) {
-  res.sendFile(path.join(__dirname, './frontend/build/index.html'), function(err) {
-    if (err) {
-      res.status(500).send(err)
-    }
-  })
-})
 
 
 

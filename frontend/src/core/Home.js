@@ -50,7 +50,7 @@ const Home = () => {
 
             
 {/* <Search /> */}
-<h2 className="mb-4">Tshirts</h2>
+<h2 className="mb-4">Products</h2>
 <div className="row">
     {productsByArrival.map((product, i) => (
 
